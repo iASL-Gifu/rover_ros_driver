@@ -1,0 +1,9 @@
+<launch>
+
+  <node pkg="rover_ros_driver" exec="can_sender_node" >
+    <remap from="throttle_send" to="throttle_send"/>
+    <remap from="steering_send" to="steering_send"/>
+    <remap from="battery_send" to="battery_send"/>
+  </node>
+
+</launch>
