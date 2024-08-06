@@ -8,6 +8,9 @@ import time
 class CANControlNode(Node):
     def __init__(self):
         super().__init__('can_control_node')
+        self.declare_parameter('steering_offset', 0.0)  # ステアリングオフセットのパラメータを宣言
+        self.steering_offset = self.get_parameter('steering_offset').get_parameter_value().double_value
+        
         self.subscription_throttle = self.create_subscription(
             Float32,
             'throttle_send',
@@ -61,7 +64,7 @@ class CANControlNode(Node):
         self.can_channel.writeWait(frame, -1)
     
     def steering_callback(self, msg):
-        steering_angle = msg.data
+        steering_angle = msg.data + self.steering_offset  # ステアリングオフセットを適用
         # self.get_logger().info(f'Received steering angle: {steering_angle}')
         frame = servo.set_steering_angle_frame(steering_angle)
         self.can_channel.writeWait(frame, -1)

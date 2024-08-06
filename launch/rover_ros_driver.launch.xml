@@ -4,6 +4,8 @@
     <remap from="throttle_send" to="throttle_send"/>
     <remap from="steering_send" to="steering_send"/>
     <remap from="battery_send" to="battery_send"/>
+
+    <param name="steering_offset" value="3.0" />
   </node>
 
 </launch>
